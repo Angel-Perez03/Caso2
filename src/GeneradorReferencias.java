@@ -18,10 +18,11 @@ public class GeneradorReferencias {
         
         //Obtener dimensiones (NF y NC)
         Imagen imagen = new Imagen(nombreImagen);
-        int NF = imagen.getAlto();   // Número de filas
-        int NC = imagen.getAncho();  // Número de columnas
+        int NF = imagen.getAlto();   // Número de filas.
+        int NC = imagen.getAncho();  // Número de columnas.
         
         //Calcular el espacio en bytes requerido para cada matriz:
+
         // Imagen y respuesta: 3 bytes por píxel (RGB)
         int bytesImagen = NF * NC * 3;
         int bytesRespuesta = bytesImagen;
