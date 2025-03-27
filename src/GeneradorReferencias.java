@@ -30,7 +30,8 @@ public class GeneradorReferencias {
         int bytesFiltro = 3 * 3 * 4;
         // Total de bytes usados para las 4 matrices
         int totalBytes = bytesImagen + (bytesFiltro * 2) + bytesRespuesta;
-        // NP: número de páginas virtuales (redondeo hacia arriba)
+        // NP: número de páginas virtuales (redondeo hacia arriba).
+
         int NP = (int) Math.ceil((double) totalBytes / tamPagina);
         
         // Generar las referencias de memoria
