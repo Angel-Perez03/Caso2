@@ -5,11 +5,7 @@ import MemoriaSistema.Almacenamiento;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-/**
- * Hilo que lee el archivo de referencias y procesa cada referencia.
- * Cada 10000 referencias, duerme 1ms (simulando que corre cada ms).
- */
-public class Procesador implements Runnable {
+public class Procesador extends Thread {
 
     private String filename;
     private Kernel kernel;
@@ -24,7 +20,7 @@ public class Procesador implements Runnable {
     @Override
     public void run() {
         try (BufferedReader br = Almacenamiento.openFile(filename)) {
-            // Saltar cabecera TP, NF, NC, NR, NP
+            // Saltar cabecera: TP, NF, NC, NR, NP
             for (int i = 0; i < 5; i++) {
                 br.readLine();
             }
@@ -39,7 +35,7 @@ public class Procesador implements Runnable {
                 int pageNumber = Integer.parseInt(parts[1].trim());
                 char action = parts[3].trim().charAt(0);
 
-                // Procesa referencia
+                // Procesa la referencia
                 kernel.processReference(pageNumber, action);
                 count++;
 

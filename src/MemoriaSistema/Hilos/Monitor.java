@@ -2,11 +2,7 @@ package MemoriaSistema.Hilos;
 
 import MemoriaSistema.Kernel;
 
-/**
- * Hilo que corre cada ms y resetea los bits de referencia,
- * simulando la acción periódica del SO (Tanenbaum).
- */
-public class Monitor implements Runnable {
+public class Monitor extends Thread {
 
     private Kernel kernel;
     private volatile boolean running = true;
@@ -19,11 +15,11 @@ public class Monitor implements Runnable {
     public void run() {
         while (running) {
             try {
-                Thread.sleep(1); // se activa cada ms
+                Thread.sleep(1); // Se activa cada ms
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            // Llamamos al Kernel para que resetee bits de referencia
+            // Llamamos al Kernel para que resetee los bits de referencia
             kernel.resetReferencedBits();
         }
     }
