@@ -14,7 +14,7 @@ public class Procesador implements Runnable {
     private String filename;
     private Kernel kernel;
     // Bloque de 10000 referencias
-    private static final int BLOCK_SIZE = 10000;
+    private static final int BLOCK_SIZE = 1000;
 
     public Procesador(String filename, Kernel kernel) {
         this.filename = filename;
