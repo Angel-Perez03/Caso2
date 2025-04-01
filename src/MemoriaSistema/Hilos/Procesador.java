@@ -1,0 +1,48 @@
+package MemoriaSistema.Hilos;
+
+import MemoriaSistema.Kernel;
+import MemoriaSistema.Almacenamiento;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+public class Procesador implements Runnable {
+    private String filename;
+    private Kernel kernel;
+    private static final int blockSize = 10000; 
+    
+    public Procesador(String filename, Kernel kernel) {
+        this.filename = filename;
+        this.kernel = kernel;
+    }
+
+    @Override
+    public void run() {
+        try (BufferedReader br = Almacenamiento.openFile(filename)) {
+            // Saltar cabecera: TP, NF, NC, NR, NP
+            for (int i = 0; i < 5; i++) br.readLine();
+
+            String line;
+            int processed = 0;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length < 4) continue;
+
+                int pageNumber = Integer.parseInt(parts[1].trim());
+                char action = parts[3].trim().charAt(0);
+
+                kernel.processReference(pageNumber, action);
+                processed++;
+
+                if (processed % blockSize == 0) {
+                    try {
+                        Thread.sleep(1); // Espera 1 ms cada 10000 referencias
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
