@@ -15,15 +15,20 @@ public class Main {
             
             switch(opcion.toUpperCase()) {
                 case "1":
+                    // Llamar a Opcion1
                     Opcion1.ejecutar(sc);
                     break;
+                    
                 case "2":
+                    // Aquí llamarías a Opcion2.ejecutar(sc), si la implementas
                     Opcion2.ejecutar(sc);
                     break;
+                    
                 case "S":
                     salir = true;
                     System.out.println("Saliendo...");
                     break;
+                    
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
                     break;
