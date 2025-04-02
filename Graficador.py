@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.ticker as ticker
 
 # Leer archivo .txt
-archivo = 'output/data.txt'
+archivo = 'Caso2\data.txt'
 df = pd.read_csv(archivo, sep=r'\s+', header=0)
 
 # Gráfica 1: Número total de fallas de página (escala logarítmica)
