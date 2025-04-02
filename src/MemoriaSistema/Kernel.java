@@ -2,7 +2,7 @@ package MemoriaSistema;
 
 
 /**
- * Núcleo del sistema. Mantiene contadores (hits, misses, totalReferences) y
+ * Mantiene contadores (hits, misses, totalReferences) y
  * administra la creación de MemoriaPrincipal, ManejadorPaginas y NRU.
  */
 public class Kernel {
@@ -20,7 +20,7 @@ public class Kernel {
 
     /**
      * Crea el Kernel con el número de marcos especificado.
-     * @param numFrames Número de marcos de la memoria principal.
+     * Número de marcos de la memoria principal.
      */
     public Kernel(int numFrames) {
         System.out.println("[INFO] Kernel creado con " + numFrames + " marcos.");
@@ -34,9 +34,6 @@ public class Kernel {
      * Procesa cada referencia (número de página y acción). Si la página ya está en
      * memoria se considera HIT y se actualiza el bit R (y M en caso de escritura).
      * Si no, se produce un MISS y se carga la página mediante NRU.
-     * 
-     * @param pageNumber Número de página referenciada.
-     * @param action     Acción: 'R' para lectura o 'W' para escritura.
      */
     public synchronized void processReference(int pageNumber, char action) {
         totalReferences++;
@@ -77,7 +74,6 @@ public class Kernel {
     
     /**
      * Retorna el porcentaje de error calculado como la proporción de misses sobre totalReferences multiplicado por 100.
-     * @return Porcentaje de error.
      */
     public synchronized double getPorcentajeError() {
         return totalReferences > 0 ? ((double) misses / totalReferences) * 100 : 0;

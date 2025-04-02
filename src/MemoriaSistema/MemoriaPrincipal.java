@@ -36,7 +36,6 @@ public class MemoriaPrincipal {
         }
         int frame = freeFrames.poll(); // Toma un marco libre
         pageToFrame.put(pageNumber, frame); 
-        // System.out.println(\"[DEBUG] allocateFrame -> page \" + pageNumber + \" => frame \" + frame);
         return frame;
     }
 
@@ -48,7 +47,6 @@ public class MemoriaPrincipal {
         if (pageToFrame.containsKey(pageNumber)) {
             int frame = pageToFrame.remove(pageNumber);
             freeFrames.add(frame);
-            // System.out.println(\"[DEBUG] deallocateFrame -> page \" + pageNumber + \" => frame \" + frame + \" liberado\");
         }
     }
 

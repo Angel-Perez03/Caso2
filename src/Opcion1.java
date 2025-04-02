@@ -31,28 +31,22 @@ public class Opcion1 {
         { 1,  2,  1}
     };
 
-    /**
-     * Constructor para preparar la lógica de la Opción 1.
-     * 
-     * @param tp                Tamaño de página en bytes
-     * @param nombreArchivoBMP  Nombre/ruta del archivo BMP
-     */
     public Opcion1(int tp, String nombreArchivoBMP) {
         this.TP = tp;
         this.nombreBMP = nombreArchivoBMP;
         
-        // 1) Cargar la imagen
+        // Cargar la imagen
         this.imagenIn = new Imagen(nombreArchivoBMP);
         this.NF = imagenIn.alto;
         this.NC = imagenIn.ancho;
 
-        // 2) Calcular tamaños en bytes
+        // Calcular tamaños en bytes
         long tamImagen    = (long)NF * NC * 3; // imagenIn
         long tamSobelX    = 3L * 3 * 4;        // 36 bytes
         long tamSobelY    = 3L * 3 * 4;        // 36 bytes
         long tamImagenOut = tamImagen;         // imagenOut
 
-        // 3) Bases en memoria virtual
+        // Bases en memoria virtual
         baseImagenIn  = 0;
         baseSobelX    = baseImagenIn  + tamImagen;
         baseSobelY    = baseSobelX    + tamSobelX;
@@ -64,20 +58,17 @@ public class Opcion1 {
      * (accesos a imagenIn, SOBEL_X, SOBEL_Y, imagenOut).
      */
     public void generarArchivoReferencias(String nombreArchivoSalida) {
-        // 1) Calcular total de bytes (imagenIn + filtros + imagenOut)
+        // Calcular total de bytes (imagenIn + filtros + imagenOut)
         long totalBytes = baseImagenOut + (long)NF * NC * 3;
-        // 2) Cantidad de páginas virtuales
+        // Cantidad de páginas virtuales
         long NP = (long)Math.ceil( (double)totalBytes / TP );
 
         StringBuilder sbRefs = new StringBuilder();
         long countRefs = 0;
 
-        // 3) Simular la lógica:
-        // i en [1..NF-2], j en [1..NC-2]
         for(int i = 1; i < NF - 1; i++) {
             for(int j = 1; j < NC - 1; j++) {
 
-                // 9 vecinos
                 for(int ki = -1; ki <= 1; ki++) {
                     for(int kj = -1; kj <= 1; kj++) {
                         
@@ -129,7 +120,7 @@ public class Opcion1 {
             }
         }
 
-        // 4) Encabezado
+        // Encabezado
         StringBuilder sb = new StringBuilder();
         sb.append("TP=").append(TP).append("\n");
         sb.append("NF=").append(NF).append("\n");
@@ -140,7 +131,7 @@ public class Opcion1 {
         // Añadir las referencias
         sb.append(sbRefs);
 
-        // 5) Guardar en archivo
+        // Guardar en archivo
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(nombreArchivoSalida))) {
             pw.print(sb.toString());
         } catch (IOException e) {
@@ -153,9 +144,7 @@ public class Opcion1 {
         System.out.println("NP (páginas virtuales) = " + NP);
     }
 
-    // ---------------------------------------------------------------
     // Métodos auxiliares
-    // ---------------------------------------------------------------
 
     private long getDirImagenIn(int i, int j, int canal) {
         long offset = ((long)i * NC + j) * 3 + canal;
@@ -192,9 +181,7 @@ public class Opcion1 {
         }
     }
 
-    /**
-     * Método que el `Main` invoca cuando el usuario selecciona "1".
-     */
+    //Metodo que invoca la opción 1 desde el menú principal
     public static void ejecutar(Scanner sc) {
         System.out.println("=== Opción 1: Generación de las referencias ===");
 

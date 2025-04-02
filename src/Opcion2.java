@@ -17,22 +17,22 @@ public class Opcion2 {
         System.out.print("Ingrese el nombre del archivo de referencias: ");
         String refFile = sc.nextLine().trim();
 
-        // 1) Creamos el Kernel
+        // Creamos el Kernel
         Kernel kernel = new Kernel(numFrames);
 
-        // 2) Creamos el procesador e hilo
+        // Creamos el procesador e hilo
         Procesador procesador = new Procesador(refFile, kernel);
         Thread tProcesador = new Thread(procesador);
 
-        // 3) Creamos el monitor e hilo
+        // Creamos el monitor e hilo
         Monitor monitor = new Monitor(kernel);
         Thread tMonitor = new Thread(monitor);
 
-        // 4) Arrancamos ambos hilos
+        // Arrancamos ambos hilos
         tProcesador.start();
         tMonitor.start();
 
-        // 5) Esperamos a que el procesador termine
+        // Esperamos a que el procesador termine
         try {
             tProcesador.join();
         } catch (InterruptedException e) {
@@ -40,7 +40,7 @@ public class Opcion2 {
             Thread.currentThread().interrupt();
         }
 
-        // 6) Detenemos el monitor
+        // Detenemos el monitor
         monitor.stopRunning();
         try {
             tMonitor.join();
@@ -48,7 +48,7 @@ public class Opcion2 {
             Thread.currentThread().interrupt();
         }
 
-        // 7) Mostramos resultados
+        // Mostramos resultados
         System.out.println("\n--- Resultados de la simulación ---");
         System.out.println("Total referencias procesadas: " + kernel.getTotalReferences());
         System.out.println("Hits: " + kernel.getHits());

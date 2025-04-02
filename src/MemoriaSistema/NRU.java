@@ -34,11 +34,6 @@ public class NRU {
             int frameNumber = memoriaPrincipal.allocateFrame(pageNumber);
             manejadorPaginas.addPage(pageNumber, frameNumber, true, (action == 'W'));
         } else {
-            // Clasificar páginas según (Referenced, Modified)
-            // Clase 0: R=0, M=0
-            // Clase 1: R=0, M=1
-            // Clase 2: R=1, M=0
-            // Clase 3: R=1, M=1
             List<Integer>[] clases = new List[4];
             for (int i = 0; i < 4; i++) {
                 clases[i] = new ArrayList<>();

@@ -26,7 +26,7 @@ public class Imagen {
     
     /**
      * Constructor que lee desde un archivo BMP y construye la matriz 'imagen'.
-     * @param nombre Nombre del archivo BMP (24 bits de profundidad).
+     * Nombre del archivo BMP (24 bits de profundidad).
      */
     public Imagen(String nombre) {
         try {
@@ -74,21 +74,14 @@ public class Imagen {
         }
     }
 
-    /**
-     * Constructor alternativo (si quisieras crear una imagen vacía, por ejemplo).
-     * No es estrictamente necesario para la Opción 1, pero se deja para completitud.
-     */
+
     public Imagen(int alto, int ancho) {
         this.alto = alto;
         this.ancho = ancho;
         imagen = new byte[alto][ancho][3];
-        // Podríamos inicializar la cabecera BMP si hiciera falta.
+        
     }
 
-    /**
-     * Escribe la imagen al archivo BMP.
-     * @param output Nombre del archivo de salida.
-     */
     public void escribirImagen(String output) {
         try {
             FileOutputStream fos = new FileOutputStream(output);
