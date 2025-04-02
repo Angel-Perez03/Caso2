@@ -194,7 +194,6 @@ public class Opcion1 {
 
     /**
      * Método que el `Main` invoca cuando el usuario selecciona "1".
-     * Pide los parámetros y llama a generarArchivoReferencias().
      */
     public static void ejecutar(Scanner sc) {
         System.out.println("=== Opción 1: Generación de las referencias ===");

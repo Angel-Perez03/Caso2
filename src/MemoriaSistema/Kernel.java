@@ -1,8 +1,5 @@
 package MemoriaSistema;
 
-import MemoriaSistema.Hilos.Procesador;
-import MemoriaSistema.Hilos.Monitor;
-import java.util.Scanner;
 
 /**
  * Núcleo del sistema. Mantiene contadores (hits, misses, totalReferences) y
@@ -77,49 +74,12 @@ public class Kernel {
     public synchronized int getMisses() {
         return misses;
     }
-
+    
     /**
-     * Método principal para ejecutar la opción 2 (simulación de paginación y cálculo
-     * de métricas) con hilos concurrentes.
+     * Retorna el porcentaje de error calculado como la proporción de misses sobre totalReferences multiplicado por 100.
+     * @return Porcentaje de error.
      */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Ingrese el número de marcos: ");
-        int numFrames = sc.nextInt();
-        sc.nextLine(); // Limpiar el buffer
-        System.out.print("Ingrese el nombre del archivo de referencias: ");
-        String refFile = sc.nextLine();
-
-        Kernel kernel = new Kernel(numFrames);
-
-        // Se instancian y se inician los hilos Procesador y Monitor (ambos extienden Thread)
-        Procesador procesador = new Procesador(refFile, kernel);
-        Monitor monitor = new Monitor(kernel);
-
-        procesador.start();
-        monitor.start();
-
-        // Se espera a que el Procesador termine de procesar todas las referencias
-        try {
-            procesador.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Se detiene el Monitor y se espera a que finalice
-        monitor.stopRunning();
-        try {
-            monitor.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Se muestran los resultados de la simulación
-        System.out.println("\n--- Resultados de la simulación ---");
-        System.out.println("Total referencias procesadas: " + kernel.getTotalReferences());
-        System.out.println("Hits: " + kernel.getHits());
-        System.out.println("Fallas de página (misses): " + kernel.getMisses());
-
-        sc.close();
+    public synchronized double getPorcentajeError() {
+        return totalReferences > 0 ? ((double) misses / totalReferences) * 100 : 0;
     }
 }

@@ -53,5 +53,8 @@ public class Opcion2 {
         System.out.println("Total referencias procesadas: " + kernel.getTotalReferences());
         System.out.println("Hits: " + kernel.getHits());
         System.out.println("Fallas de página (misses): " + kernel.getMisses());
+        double porcentajeError = kernel.getTotalReferences() > 0 ?
+            ((double) kernel.getMisses() / kernel.getTotalReferences()) * 100 : 0;
+            System.out.printf("Porcentaje de error: %.2f%%\n", porcentajeError);
     }
 }

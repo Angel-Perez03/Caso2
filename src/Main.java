@@ -20,7 +20,7 @@ public class Main {
                     break;
                     
                 case "2":
-                    // Aquí llamarías a Opcion2.ejecutar(sc), si la implementas
+                    // llamar a Opcion2
                     Opcion2.ejecutar(sc);
                     break;
                     
